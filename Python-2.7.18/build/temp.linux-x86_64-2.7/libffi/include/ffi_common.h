@@ -1,1 +1,0 @@
-/home/kokuban/android_kernel_samsung_sm8250_TabS7/Python-2.7.18/Modules/_ctypes/libffi/include/ffi_common.h
