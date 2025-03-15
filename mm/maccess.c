@@ -67,7 +67,7 @@ long __probe_user_read(void *dst, const void __user *src, size_t size)
 	mm_segment_t old_fs = get_fs();
 
 	set_fs(USER_DS);
-	if (access_ok(src, size))
+	if ((access_ok(VERIFY_READ, src, size)))
 		ret = probe_read_common(dst, src, size);
 	set_fs(old_fs);
 
@@ -144,7 +144,7 @@ long strncpy_from_unsafe(char *dst, const void *unsafe_addr, long count)
 }
 
 /**
- * strncpy_from_user_nofault: - Copy a NUL terminated string from unsafe user
+ * strncpy_from_unsafe_user: - Copy a NUL terminated string from unsafe user
  *				address.
  * @dst:   Destination address, in kernel space.  This buffer must be at
  *         least @count bytes long.
@@ -161,7 +161,7 @@ long strncpy_from_unsafe(char *dst, const void *unsafe_addr, long count)
  * If @count is smaller than the length of the string, copies @count-1 bytes,
  * sets the last byte of @dst buffer to NUL and returns @count.
  */
-long strncpy_from_user_nofault(char *dst, const void __user *unsafe_addr,
+long strncpy_from_unsafe_user(char *dst, const void __user *unsafe_addr,
 			      long count)
 {
 	mm_segment_t old_fs = get_fs();
